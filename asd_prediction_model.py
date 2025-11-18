@@ -163,19 +163,21 @@ class ASDPredictor:
         X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
         
-        # Define models to test with regularization to prevent overfitting
+        # Define models to test with stronger regularization to prevent overfitting
+        # Note: Dataset has strong separation - using conservative parameters
         models = {
             'Random Forest': RandomForestClassifier(
-                n_estimators=100, random_state=42, max_depth=8, 
-                min_samples_split=10, min_samples_leaf=5, max_features='sqrt'
+                n_estimators=50, random_state=42, max_depth=5, 
+                min_samples_split=20, min_samples_leaf=10, max_features='sqrt'
             ),
             'Gradient Boosting': GradientBoostingClassifier(
-                n_estimators=100, random_state=42, max_depth=4,
-                learning_rate=0.1, min_samples_split=10, min_samples_leaf=5
+                n_estimators=50, random_state=42, max_depth=3,
+                learning_rate=0.05, min_samples_split=20, min_samples_leaf=10,
+                subsample=0.8  # Add subsampling for regularization
             ),
-            'SVM': SVC(kernel='rbf', probability=True, random_state=42, C=1.0, gamma='scale'),
+            'SVM': SVC(kernel='rbf', probability=True, random_state=42, C=0.5, gamma='scale'),
             'Logistic Regression': LogisticRegression(
-                max_iter=1000, random_state=42, C=1.0, penalty='l2'
+                max_iter=1000, random_state=42, C=0.5, penalty='l2'
             )
         }
         

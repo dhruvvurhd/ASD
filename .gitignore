@@ -33,13 +33,6 @@ wheels/
 *.swo
 *~
 
-# Model files (if too large, uncomment)
-# *.pkl
-
-# Data files (if too large, uncomment)
-# *.csv
-# *.zip
-
 # OS
 .DS_Store
 Thumbs.db
@@ -50,4 +43,10 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+*.bak
+*~
 
+# Keep model and dataset (they're needed)
+# Uncomment if files are too large:
+# *.pkl
+# *.csv
